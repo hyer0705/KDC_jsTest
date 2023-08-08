@@ -54,10 +54,6 @@ class ImageInfo {
         </div>`;
       this.$imageInfo.style.display = "block";
 
-      this.$imageInfo.querySelector(".close").addEventListener("click", (e) => {
-        this.closeImageInfo();
-      });
-
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           this.closeImageInfo();
@@ -65,7 +61,10 @@ class ImageInfo {
       });
 
       this.$imageInfo.addEventListener("click", (e) => {
-        if (e.target.className === "ImageInfo") {
+        if (
+          e.target.className === "ImageInfo" ||
+          e.target.className === "close"
+        ) {
           this.closeImageInfo();
         }
       });

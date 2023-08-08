@@ -48,8 +48,6 @@ class App {
       $target,
       initialData: this.data,
       onClick: (cat) => {
-        console.log(cat);
-
         this.imageInfo.showDetails({
           visible: true,
           cat,
