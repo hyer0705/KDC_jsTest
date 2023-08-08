@@ -30,6 +30,20 @@ class App {
       },
     });
 
+    this.randomSearchButton = new RandomSearchButton({
+      $target,
+      onRandomSearch: () => {
+        //show
+        this.loading.show();
+
+        api.fetchRandomCats().then(({ data }) => {
+          this.setState(data);
+          //hide
+          this.loading.hide();
+        });
+      },
+    });
+
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
