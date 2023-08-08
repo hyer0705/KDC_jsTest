@@ -29,6 +29,13 @@ class ImageInfo {
     });
   }
 
+  closeImageInfo() {
+    this.setState({
+      visible: false,
+      cat: undefined,
+    });
+  }
+
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.cat;
@@ -46,6 +53,22 @@ class ImageInfo {
           </div>
         </div>`;
       this.$imageInfo.style.display = "block";
+
+      this.$imageInfo.querySelector(".close").addEventListener("click", (e) => {
+        this.closeImageInfo();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          this.closeImageInfo();
+        }
+      });
+
+      this.$imageInfo.addEventListener("click", (e) => {
+        if (e.target.className === "ImageInfo") {
+          this.closeImageInfo();
+        }
+      });
     } else {
       this.$imageInfo.style.display = "none";
     }
