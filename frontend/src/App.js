@@ -47,10 +47,12 @@ class App {
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: (image) => {
-        this.imageInfo.setState({
+      onClick: (cat) => {
+        console.log(cat);
+
+        this.imageInfo.showDetails({
           visible: true,
-          image,
+          cat,
         });
       },
     });
@@ -59,7 +61,7 @@ class App {
       $target,
       data: {
         visible: false,
-        image: null,
+        cat: null,
       },
     });
   }
