@@ -41,4 +41,8 @@ class SearchInput {
   render() {
     this.$searchInput.value = this.data;
   }
+
+  resetValue() {
+    this.setState(null);
+  }
 }

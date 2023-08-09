@@ -42,6 +42,8 @@ class App {
           this.setState(data);
           //hide
           this.loading.hide();
+          // reset search input
+          this.searchInput.resetValue();
         });
       },
     });
