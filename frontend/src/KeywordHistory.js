@@ -8,11 +8,21 @@ class KeywordHistory {
     this.$keywordHistory.className = "KeywordHistory";
     $target.appendChild(this.$keywordHistory);
 
-    // dummy data
-    this.data = ["아", "테일", "고양이"];
-
     this.onSearch = onSearch;
 
+    this.init();
+    // this.render();
+  }
+
+  init() {
+    const getKeywordHistory = localStorage.getItem("keywordHistory");
+    const data = getKeywordHistory === null ? [] : getKeywordHistory.split(",");
+
+    this.setState(data);
+  }
+
+  setState(nextData) {
+    this.data = nextData;
     this.render();
   }
 
