@@ -35,6 +35,7 @@ class SearchResult {
 
   applyEventToElement = (items) => {
     // scroll event 는 너무 많이 호출 되기 때문에 문제가 발생... 랜더링을 쉴새없이 함..
+    // -> 디바운싱 쓰로틀링 필요
     document.addEventListener("scroll", () => {
       items.forEach((el, idx) => {
         if (this.isElementInViewport(el) && items.length - 1 === idx) {

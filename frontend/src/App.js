@@ -3,6 +3,7 @@ console.log("app is running!");
 class App {
   $target = null;
   data = [];
+  page = 1;
 
   constructor($target) {
     this.$target = $target;
@@ -62,10 +63,20 @@ class App {
         //show
         this.loading.show();
 
-        api.fetchCatsPage("테일", 2).then(({ data }) => {
+        let keywordHistory =
+          localStorage.getItem("keywordHistory") === null
+            ? []
+            : localStorage.getItem("keywordHistory").split(",");
+        let lastKeyword = keywordHistory[0];
+
+        let page = this.page + 1;
+
+        api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
           let newData = this.data.concat(data);
           console.log(newData);
           this.setState(newData);
+
+          this.page = page;
 
           //hide
           this.loading.hide();
