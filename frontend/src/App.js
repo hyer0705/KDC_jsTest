@@ -57,6 +57,22 @@ class App {
           cat,
         });
       },
+      onNextPage: () => {
+        console.log("다음 페이지 로딩~");
+        //show
+        this.loading.show();
+
+        api.fetchCats("테일").then(({ data }) => {
+          let newData = this.data.concat(data);
+          console.log(newData);
+          this.setState(newData);
+
+          //hide
+          this.loading.hide();
+
+          // this.saveLastResult(data);
+        });
+      },
     });
 
     this.imageInfo = new ImageInfo({
