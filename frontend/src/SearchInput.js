@@ -18,6 +18,8 @@ class SearchInput {
         onSearch(e.target.value);
       }
     });
+
+    this.$keywordHistory = new KeywordHistory({ $target, onSearch });
   }
   render() {}
 }
