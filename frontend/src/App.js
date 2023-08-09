@@ -62,7 +62,7 @@ class App {
         //show
         this.loading.show();
 
-        api.fetchCats("테일").then(({ data }) => {
+        api.fetchCatsPage("테일", 2).then(({ data }) => {
           let newData = this.data.concat(data);
           console.log(newData);
           this.setState(newData);
