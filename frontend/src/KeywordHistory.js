@@ -14,9 +14,24 @@ class KeywordHistory {
     // this.render();
   }
 
+  getKeywordHistory() {
+    return localStorage.getItem("keywordHistory") === null
+      ? []
+      : localStorage.getItem("keywordHistory").split(",");
+  }
+
+  addKeyword(keyword) {
+    let keywordHistory = this.getKeywordHistory();
+    keywordHistory.unshift(keyword);
+    keywordHistory = keywordHistory.slice(0, 5);
+
+    localStorage.setItem("keywordHistory", keywordHistory.join(","));
+
+    this.init();
+  }
+
   init() {
-    const getKeywordHistory = localStorage.getItem("keywordHistory");
-    const data = getKeywordHistory === null ? [] : getKeywordHistory.split(",");
+    const data = this.getKeywordHistory();
 
     this.setState(data);
   }

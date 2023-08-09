@@ -16,14 +16,8 @@ class SearchInput {
     // keyup 의 경우 한글을 입력하고 Enter를 누르면 Enter가 두 번 호출되는 오류가 있음
     $searchInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        const getKeywordHistory = localStorage.getItem("keywordHistory");
-        let keywordHistory =
-          getKeywordHistory === null ? [] : getKeywordHistory.split(",");
-        keywordHistory.unshift(e.target.value);
-        keywordHistory = keywordHistory.slice(0, 5);
-        localStorage.setItem("keywordHistory", keywordHistory.join(","));
-
         onSearch(e.target.value);
+        this.$keywordHistory.addKeyword(e.target.value);
       }
     });
 
