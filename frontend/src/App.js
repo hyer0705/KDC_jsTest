@@ -26,6 +26,8 @@ class App {
 
           //hide
           this.loading.hide();
+
+          this.saveLastResult(data);
         });
       },
     });
@@ -62,11 +64,29 @@ class App {
         cat: null,
       },
     });
+
+    this.init();
   }
 
   setState(nextData) {
     console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  saveLastResult(result) {
+    localStorage.setItem("lastResult", JSON.stringify(result));
+  }
+
+  getLastResult() {
+    return localStorage.getItem("lastResult") === null
+      ? []
+      : JSON.parse(localStorage.getItem("lastResult"));
+  }
+
+  init() {
+    const lastResult = this.getLastResult();
+
+    this.setState(lastResult);
   }
 }
