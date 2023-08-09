@@ -26,6 +26,8 @@ class App {
 
           //hide
           this.loading.hide();
+
+          this.saveLastResult(data);
         });
       },
     });
@@ -40,6 +42,8 @@ class App {
           this.setState(data);
           //hide
           this.loading.hide();
+          // reset search input
+          this.searchInput.resetValue();
         });
       },
     });
@@ -62,11 +66,30 @@ class App {
         cat: null,
       },
     });
+
+    this.init();
   }
 
   setState(nextData) {
-    console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  saveLastResult(result) {
+    localStorage.setItem("lastResult", JSON.stringify(result));
+  }
+
+  getLastResult() {
+    return localStorage.getItem("lastResult") === null
+      ? []
+      : JSON.parse(localStorage.getItem("lastResult"));
+  }
+
+  init() {
+    const lastResult = this.getLastResult();
+
+    this.setState(lastResult);
+
+    this.searchInput.setLastKeyword(this.searchInput.getLastKeyword());
   }
 }

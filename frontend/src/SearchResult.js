@@ -13,7 +13,7 @@ class SearchResult {
     this.data = initialData;
     this.onClick = onClick;
 
-    this.render();
+    // this.render();
   }
 
   setState(nextData) {
