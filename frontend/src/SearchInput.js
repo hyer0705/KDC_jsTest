@@ -1,6 +1,8 @@
 const TEMPLATE = '<input type="text">';
 
 class SearchInput {
+  data = null;
+
   constructor({ $target, onSearch }) {
     const $wrapper = document.createElement("section");
     $wrapper.id = "SearchWrapper";
@@ -23,5 +25,20 @@ class SearchInput {
 
     this.$keywordHistory = new KeywordHistory({ $target, onSearch });
   }
-  render() {}
+
+  getLastKeyword() {
+    let lastKeyword = this.$keywordHistory.getKeywordHistory().at(0);
+    return lastKeyword;
+  }
+  setLastKeyword(lastKeyword) {
+    this.setState(lastKeyword);
+  }
+
+  setState(nextData) {
+    this.data = nextData;
+    this.render();
+  }
+  render() {
+    this.$searchInput.value = this.data;
+  }
 }

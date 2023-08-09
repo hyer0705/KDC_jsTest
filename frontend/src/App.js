@@ -69,7 +69,6 @@ class App {
   }
 
   setState(nextData) {
-    console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
   }
@@ -88,5 +87,7 @@ class App {
     const lastResult = this.getLastResult();
 
     this.setState(lastResult);
+
+    this.searchInput.setLastKeyword(this.searchInput.getLastKeyword());
   }
 }
