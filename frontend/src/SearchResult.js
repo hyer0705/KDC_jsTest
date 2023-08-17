@@ -45,12 +45,30 @@ class SearchResult {
     });
   };
 
+  listObserver = new IntersectionObserver((items, observer) => {
+    items.forEach((item) => {
+      // 아이템이 화면에 보일 때
+      if (item.isIntersecting) {
+        // 이미지 로드
+        item.target.querySelector("img").src =
+          item.target.querySelector("img").dataset.src;
+        // 마지막 요소를 찾아낸다
+        let dataIdx = Number(item.target.dataset.idx);
+
+        // 마지막 요소라면? nextPage 호출
+        if (dataIdx + 1 === this.data.length) {
+          this.onNextPage();
+        }
+      }
+    });
+  });
+
   render() {
     this.$searchResult.innerHTML = this.data
       .map(
-        (cat) => `
-          <li class="item">
-            <img src=${cat.url} alt=${cat.name} />
+        (cat, idx) => `
+          <li class="item" data-idx=${idx}>
+            <img src="https://placehold.co/200x300" data-src=${cat.url} alt=${cat.name} />
           </li>
         `
       )
@@ -60,9 +78,8 @@ class SearchResult {
       $item.addEventListener("click", () => {
         this.onClick(this.data[index]);
       });
-    });
 
-    let listItems = this.$searchResult.querySelectorAll(".item");
-    this.applyEventToElement(listItems);
+      this.listObserver.observe($item);
+    });
   }
 }
