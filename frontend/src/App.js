@@ -3,6 +3,7 @@ console.log("app is running!");
 class App {
   $target = null;
   data = [];
+  page = 1;
 
   constructor($target) {
     this.$target = $target;
@@ -55,6 +56,32 @@ class App {
         this.imageInfo.showDetails({
           visible: true,
           cat,
+        });
+      },
+      onNextPage: () => {
+        console.log("다음 페이지 로딩~");
+        //show
+        this.loading.show();
+
+        let keywordHistory =
+          localStorage.getItem("keywordHistory") === null
+            ? []
+            : localStorage.getItem("keywordHistory").split(",");
+        let lastKeyword = keywordHistory[0];
+
+        let page = this.page + 1;
+
+        api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
+          let newData = this.data.concat(data);
+          console.log(newData);
+          this.setState(newData);
+
+          this.page = page;
+
+          //hide
+          this.loading.hide();
+
+          // this.saveLastResult(data);
         });
       },
     });
