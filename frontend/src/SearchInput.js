@@ -23,7 +23,13 @@ class SearchInput {
       }
     });
 
-    this.$keywordHistory = new KeywordHistory({ $target, onSearch });
+    this.$keywordHistory = new KeywordHistory({
+      $target,
+      onSearch,
+      setValueInInput: (value) => {
+        this.$searchInput.value = value;
+      },
+    });
   }
 
   getLastKeyword() {

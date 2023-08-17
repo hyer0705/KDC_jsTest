@@ -23,7 +23,7 @@ class App {
         this.loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
-          this.setState(data);
+          this.setState(data ? data : []);
 
           //hide
           this.loading.hide();
@@ -59,7 +59,6 @@ class App {
         });
       },
       onNextPage: () => {
-        console.log("다음 페이지 로딩~");
         //show
         this.loading.show();
 
@@ -73,15 +72,12 @@ class App {
 
         api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
           let newData = this.data.concat(data);
-          console.log(newData);
           this.setState(newData);
 
           this.page = page;
 
           //hide
           this.loading.hide();
-
-          // this.saveLastResult(data);
         });
       },
     });
