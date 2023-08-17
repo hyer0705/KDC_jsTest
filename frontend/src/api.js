@@ -1,9 +1,12 @@
-const API_ENDPOINT = "http://localhost:4001";
+// const API_ENDPOINT = "http://localhost:4001";
 // "https://rhdd0roxs5.execute-api.ap-northeast-2.amazonaws.com/dev";
 
-const REQUEST_ERROR = {
-  500: { msg: "요청 실패!" },
-};
+import config from "./config.js";
+import error from "./error.js";
+
+const { API_ENDPOINT } = config;
+
+const { REQUEST_ERROR } = error;
 
 const request = async (url) => {
   // return fetch(url).then((res) => res.json());
@@ -36,3 +39,5 @@ const api = {
     return request(`${API_ENDPOINT}/api/cats/${id}`);
   },
 };
+
+export default api;
