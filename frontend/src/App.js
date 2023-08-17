@@ -86,12 +86,13 @@ class App {
             : localStorage.getItem("keywordHistory").split(",");
         let lastKeyword = keywordHistory[0];
 
-        let page = this.page + 1;
+        let page = this.increasePage();
 
         api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
           let newData = this.data.items.concat(data);
+
           this.setState({
-            itesm: newData ? newData : [],
+            items: newData,
             page: page,
           });
 
@@ -110,6 +111,10 @@ class App {
     });
 
     this.init();
+  }
+
+  increasePage() {
+    return this.data.page + 1;
   }
 
   setState(nextData) {
