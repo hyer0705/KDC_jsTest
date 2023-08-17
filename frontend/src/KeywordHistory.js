@@ -60,3 +60,5 @@ class KeywordHistory {
     });
   }
 }
+
+export default KeywordHistory;

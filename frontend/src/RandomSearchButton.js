@@ -16,3 +16,5 @@ class RandomSearchButton {
     });
   }
 }
+
+export default RandomSearchButton;

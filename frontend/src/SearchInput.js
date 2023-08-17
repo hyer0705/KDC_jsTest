@@ -1,3 +1,5 @@
+import KeywordHistory from "./KeywordHistory.js";
+
 const TEMPLATE = '<input type="text">';
 
 class SearchInput {
@@ -52,3 +54,5 @@ class SearchInput {
     this.setState(null);
   }
 }
+
+export default SearchInput;
