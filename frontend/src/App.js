@@ -10,8 +10,12 @@ import api from "./api.js";
 
 class App {
   $target = null;
-  data = [];
-  page = 1;
+  DEFAULT_PAGE = 1;
+
+  data = {
+    items: [],
+    page: this.DEFAULT_PAGE,
+  };
 
   constructor($target) {
     this.$target = $target;
@@ -31,7 +35,10 @@ class App {
         this.loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
-          this.setState(data ? data : []);
+          this.setState({
+            items: data ? data : [],
+            page: this.DEFAULT_PAGE,
+          });
 
           //hide
           this.loading.hide();
@@ -48,7 +55,10 @@ class App {
         this.loading.show();
 
         api.fetchRandomCats().then(({ data }) => {
-          this.setState(data);
+          this.setState({
+            items: data ? data : [],
+            page: this.DEFAULT_PAGE,
+          });
           //hide
           this.loading.hide();
           // reset search input
@@ -59,7 +69,7 @@ class App {
 
     this.searchResult = new SearchResult({
       $target,
-      initialData: this.data,
+      initialData: this.data.items,
       onClick: (cat) => {
         this.imageInfo.showDetails({
           visible: true,
@@ -76,13 +86,15 @@ class App {
             : localStorage.getItem("keywordHistory").split(",");
         let lastKeyword = keywordHistory[0];
 
-        let page = this.page + 1;
+        let page = this.increasePage();
 
         api.fetchCatsPage(lastKeyword, page).then(({ data }) => {
-          let newData = this.data.concat(data);
-          this.setState(newData);
+          let newData = this.data.items.concat(data);
 
-          this.page = page;
+          this.setState({
+            items: newData,
+            page: page,
+          });
 
           //hide
           this.loading.hide();
@@ -101,9 +113,13 @@ class App {
     this.init();
   }
 
+  increasePage() {
+    return this.data.page + 1;
+  }
+
   setState(nextData) {
     this.data = nextData;
-    this.searchResult.setState(nextData);
+    this.searchResult.setState(nextData.items);
   }
 
   saveLastResult(result) {
@@ -119,9 +135,15 @@ class App {
   init() {
     const lastResult = this.getLastResult();
 
-    this.setState(lastResult);
+    this.setState({
+      items: lastResult,
+      page: this.DEFAULT_PAGE,
+    });
 
-    this.searchInput.setLastKeyword(this.searchInput.getLastKeyword());
+    let lastKeyword = this.searchInput.getLastKeyword()
+      ? this.searchInput.getLastKeyword()
+      : "";
+    this.searchInput.setLastKeyword(lastKeyword);
   }
 }
 
