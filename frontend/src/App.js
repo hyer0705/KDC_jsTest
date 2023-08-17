@@ -140,7 +140,10 @@ class App {
       page: this.DEFAULT_PAGE,
     });
 
-    this.searchInput.setLastKeyword(this.searchInput.getLastKeyword());
+    let lastKeyword = this.searchInput.getLastKeyword()
+      ? this.searchInput.getLastKeyword()
+      : "";
+    this.searchInput.setLastKeyword(lastKeyword);
   }
 }
 
