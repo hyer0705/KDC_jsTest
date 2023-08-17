@@ -47,6 +47,16 @@ class KeywordHistory {
     this.render();
   }
 
+  bindClickEvent() {
+    this.$keywordHistory.querySelectorAll("li button").forEach(($item, idx) => {
+      $item.addEventListener("click", () => {
+        let keyword = this.data.at(idx);
+        this.onSearch(keyword);
+        this.setValueInInput(keyword);
+      });
+    });
+  }
+
   render() {
     this.$keywordHistory.innerHTML = this.data
       .map(
@@ -56,13 +66,7 @@ class KeywordHistory {
       )
       .join("");
 
-    this.$keywordHistory.querySelectorAll("li button").forEach(($item, idx) => {
-      $item.addEventListener("click", () => {
-        let keyword = this.data.at(idx);
-        this.onSearch(keyword);
-        this.setValueInInput(keyword);
-      });
-    });
+    this.bindClickEvent();
   }
 }
 
