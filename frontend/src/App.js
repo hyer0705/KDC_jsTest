@@ -23,7 +23,7 @@ class App {
         this.loading.show();
 
         api.fetchCats(keyword).then(({ data }) => {
-          this.setState(data);
+          this.setState(data ? data : []);
 
           //hide
           this.loading.hide();
