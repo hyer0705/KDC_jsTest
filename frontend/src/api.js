@@ -20,7 +20,6 @@ const request = async (url) => {
       throw REQUEST_ERROR[result.status];
     }
   } catch (error) {
-    alert(error.msg);
     return { data: null };
   }
 };

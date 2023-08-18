@@ -30,18 +30,15 @@ class Empty {
   }
 
   render() {
-    console.log(this.data);
     if (this.data.show) {
-      if (this.data.isNull) {
-        this.$empty.style.display = "block";
-        this.$empty.innerHTML = `
-            <p>🚨요청 실패...!!!🚨</p>
+      let resultMsg = this.data.isNull
+        ? "요청 실패...!!!"
+        : "검색 결과가 없습니다.";
+
+      this.$empty.style.display = "block";
+      this.$empty.innerHTML = `
+            <p>🚨${resultMsg}🚨</p>
         `;
-      } else {
-        this.$empty.innerHTML = `
-            <p>🚨검색 결과가 없습니다.🚨</p>
-        `;
-      }
     } else {
       this.$empty.style.display = "none";
       this.$empty.innerHTML = ``;
