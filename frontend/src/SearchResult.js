@@ -1,3 +1,5 @@
+import Empty from "./Empty.js";
+
 class SearchResult {
   $searchResult = null;
   data = null;
@@ -14,6 +16,7 @@ class SearchResult {
     this.onClick = onClick;
     this.onNextPage = onNextPage;
 
+    this.$empty = new Empty({ $target: $wrapper });
     // this.render();
   }
 
