@@ -6,20 +6,20 @@
   } else {
     root.validator = factory();
   }
-}(this, function () {
+})(this, function () {
   // implement code here
   const validator = {
     isNumber(a) {
-      return typeof a === 'number'
-    }
+      return typeof a === "number";
+    },
   };
 
-  return validator
-}));
+  return validator;
+});
 
 // NOTE: Uncomment below lines, if you using es6 module.
-// export default {
-//   isNumber(a) {
-//     return typeof a === 'number'
-//   }
-// }
+export default {
+  isNumber(a) {
+    return typeof a === "number";
+  },
+};
