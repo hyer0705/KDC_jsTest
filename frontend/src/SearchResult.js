@@ -23,6 +23,7 @@ class SearchResult {
   setState(nextData) {
     this.data = nextData;
     this.render();
+    this.$empty.show(nextData);
   }
 
   isElementInViewport(el) {
@@ -67,6 +68,12 @@ class SearchResult {
   });
 
   render() {
+    if (this.data === null || this.data.length === 0) {
+      this.$searchResult.style.display = "none";
+      return;
+    }
+
+    this.$searchResult.style.display = "grid";
     this.$searchResult.innerHTML = this.data
       .map(
         (cat, idx) => `

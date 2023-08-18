@@ -10,21 +10,17 @@ class Empty {
     $target.appendChild($empty);
 
     this.data = {
-      show: true,
+      show: false,
+      isNull: false,
     };
 
     this.render();
   }
 
-  show() {
+  show(data) {
     this.setState({
-      show: true,
-    });
-  }
-
-  hide() {
-    this.setState({
-      show: false,
+      show: data === null || data.length === 0,
+      isNull: data === null,
     });
   }
 
@@ -34,11 +30,20 @@ class Empty {
   }
 
   render() {
+    console.log(this.data);
     if (this.data.show) {
-      this.$empty.innerHTML = `
-          <p>🚨검색 결과가 없습니다.🚨</p>
-      `;
+      if (this.data.isNull) {
+        this.$empty.style.display = "block";
+        this.$empty.innerHTML = `
+            <p>🚨요청 실패...!!!🚨</p>
+        `;
+      } else {
+        this.$empty.innerHTML = `
+            <p>🚨검색 결과가 없습니다.🚨</p>
+        `;
+      }
     } else {
+      this.$empty.style.display = "none";
       this.$empty.innerHTML = ``;
     }
   }
