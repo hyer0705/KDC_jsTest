@@ -36,7 +36,7 @@ class App {
 
         api.fetchCats(keyword).then(({ data }) => {
           this.setState({
-            items: data ? data : [],
+            items: data,
             page: this.DEFAULT_PAGE,
           });
 
@@ -56,7 +56,7 @@ class App {
 
         api.fetchRandomCats().then(({ data }) => {
           this.setState({
-            items: data ? data : [],
+            items: data,
             page: this.DEFAULT_PAGE,
           });
           //hide
